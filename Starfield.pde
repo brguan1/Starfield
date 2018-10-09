@@ -1,25 +1,65 @@
-//your code here
+Particle [] sunlight;
 void setup()
 {
-	//your code here
+	size(600,600);
+	background(0);
+	sunlight = new NormalParticle[100];
+	for (int i = 0; i < sunlight.length; i++)
+    {
+    	sunlight[i] = new NormalParticle(); 
+    }
 }
 void draw()
 {
-	//your code here
-}
-class NormalParticle
+	for (int i = 0; i< sunlight.length; i++)
+	{
+		sunlight[i].show();
+		sunlight[i].move();
+}	}
+class NormalParticle implements Particle
 {
-	//your code here
+	double xX, yY, aAngle, sSpeed;
+	//int aAngle; //cColor;
+	NormalParticle()
+	{
+		xX = 300;
+		yY = 20;
+		//cColor = ;
+		aAngle = 0.80;
+		sSpeed = 10;
+	}
+	public void show()
+	{
+		stroke(252, 240, 73);
+		line((float)xX,(float)yY,(float)xX*2,(float)yY*2);
+	}
+	public void move()
+	{
+		xX = xX + (double)(Math.cos(aAngle))*sSpeed;
+		yY = yY + (double)(Math.sin(aAngle))*sSpeed;
+	}
 }
 interface Particle
 {
-	//your code here
+	public void show();
+	public void move();
 }
-class OddballParticle //uses an interface
+class OddballParticle implements Particle
 {
-	//your code here
+	OddballParticle()
+	{
+
+	}
+	public void show()
+	{
+
+	}
+	public void move()
+	{
+
+	}
 }
-class JumboParticle //uses inheritance
+class JumboParticle extends NormalParticle
 {
 	//your code here
 }
