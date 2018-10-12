@@ -2,11 +2,13 @@ Particle [] sunlight;
 void setup()
 {
 	size(600,600);
-	sunlight = new NormalParticle[100];
+	sunlight = new Particle[1000];
 	for (int i = 0; i < sunlight.length; i++)
     {
-    	sunlight[i] = new NormalParticle(); 
+    	sunlight[i] = new NormalParticle();
+
     }
+    	sunlight[0] = new OddballParticle();
 }
 void draw()
 {
@@ -16,6 +18,7 @@ void draw()
 		sunlight[i].show();
 		sunlight[i].move();
 	}
+	sunlight[0].mousepressed();
 }
 class NormalParticle implements Particle
 {
@@ -32,7 +35,7 @@ class NormalParticle implements Particle
 	public void show()
 	{
 		stroke(252, 240, 73);
-		line((float)xX,(float)yY,(float)xX*10,(float)yY*10);
+		line((float)xX,(float)yY,(float)(xX+(Math.cos(aAngle))*30),(float)(yY+(Math.cos(aAngle))*30));
 		noStroke();
 		fill(252,240,77);
 		ellipse(300,20,100,100);
@@ -55,17 +58,33 @@ interface Particle
 }
 class OddballParticle implements Particle
 {
+	double myX, myY;
+	int qw,we,er; //color variables
 	OddballParticle()
 	{
-
+		myX = mouseX;
+		myY = mouseY;
+		qw = (int)(Math.random()*255)+1;
+		we = (int)(Math.random()*255)+1;
+		er = (int)(Math.random()*255)+1;
 	}
 	public void show()
 	{
-
+		fill(qw,we,er);
+		ellipse((float)myX,(float)myY,50,50);
 	}
 	public void move()
 	{
-
+		if (myX != mouseX)
+			myX = mouseX;
+		if (myY != mouseY)
+			myY = mouseY;
+	}
+	void mousepressed()
+	{
+		qw = (int)(Math.random()*255)+1;
+		we = (int)(Math.random()*255)+1;
+		er = (int)(Math.random()*255)+1;
 	}
 }
 class JumboParticle extends NormalParticle
